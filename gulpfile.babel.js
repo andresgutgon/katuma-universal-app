@@ -43,9 +43,7 @@ gulp.task(startProdTask, done => {
 
 
 /* Node servers starter */
-
 const startServer = (serverPath, done) => {
-
   const prodFlag = !isDevBuild ? 'NODE_ENV=production' : '';
   const server = exec(`NODE_PATH=. ${prodFlag} node ${serverPath}`);
 
@@ -61,37 +59,25 @@ const startServer = (serverPath, done) => {
     gutil.log(gutil.colors.red(data.trim()));
     gutil.beep();
   });
-
 };
 
-
-
 /* Build bundles */
-
 gulp.task('bundle', done => {
 
   if (isDevBuild) {
-
     exec('mkdir -p public/assets');
     startServer('server.dev.js', done);
-
   } else {
-
     webpack(webpackConfig).run((err, stats) => {
       webpackCallback('build', err, stats);
       done();
     });
-
   }
 
 });
 
-
-
 /* Start express servers */
-
 gulp.task('server', done => {
-
   const servers = config.server.paths;
   let queue     = servers.length;
 
@@ -99,29 +85,19 @@ gulp.task('server', done => {
     startServer(server);
     if (--queue === 0) done();
   });
-
 });
 
-
-
 /* Optimize images */
-
 gulp.task('images', done => {
-
   gulp.src(config.images.src)
       .pipe(gulpif(isDevBuild, changed(config.images.dest)))
       .pipe(imagemin(config.images.imagemin))
       .pipe(gulp.dest(config.images.dest))
       .on('end', done);
-
 });
 
-
-
 /* Copy files to `public` */
-
 gulp.task('copy', done => {
-
   const files = config.copy.files;
   let   queue = files.length;
 
@@ -139,37 +115,20 @@ gulp.task('copy', done => {
 
 });
 
-
-
 /* Watch statics */
-
 gulp.task('watch', () => {
-
   const watchItems = config.watch.files.map(file => config.watch.root + file);
-
   gulp.watch(watchItems, ['copy']);
-
 });
-
-
 
 /* Lint scripts */
-
 gulp.task('lint', done => {
-
   eslint.execute('--ext .js,.jsx .');
   done();
-
 });
 
-
-
 /* Clean up before build */
-
 gulp.task('clean', done => {
-
   const items = config.clean.map(dir => dir + '/**/*');
-
   del(items, done);
-
 });

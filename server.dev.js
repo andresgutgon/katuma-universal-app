@@ -32,7 +32,7 @@ var devServer = new WebpackDevServer(compiler, {
 
 devServer.listen(serverConfig.devPort, 'localhost', function(err) {
   if (err) console.error(err);
-  console.log('=> 🔥  Webpack development server is running on port %s', serverConfig.devPort);
+  console.log('=> 🔥 Webpack development server is running on port %s', serverConfig.devPort);
 });
 
 compiler.plugin('done', function() {
