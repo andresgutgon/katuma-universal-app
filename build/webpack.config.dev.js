@@ -31,7 +31,7 @@ export default {
     extensions: ['', '.js', '.jsx']
   },
 
-  devtool : '#eval',
+  devtool : '#eval-source-map',
   debug   : true,
   progress: true,
   node    : {

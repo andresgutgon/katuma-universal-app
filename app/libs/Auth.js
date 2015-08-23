@@ -1,8 +1,8 @@
 import config   from 'config/server';
 import cookies  from './cookies';
 
-
 export default class Auth {
+
 
   constructor(context, domain) {
 
@@ -52,7 +52,6 @@ export default class Auth {
 
 
   getLogin() {
-
     return this.cookie.get(config.loginCookie);
 
   }
