@@ -1,9 +1,9 @@
-import initter            from 'app/libs/initters/server';
+import initter            from './initter';
 import config             from 'config/server.app';
-import routes             from '../routes/routes';
-import reducers           from '../reducers/reducers';
-import Head               from '../layouts/Head';
-import * as AuthActions   from '../actions/AuthActions';
+import routes             from '../../routes/routes';
+import reducers           from '../../reducers/reducers';
+import Head               from './Head';
+import * as AuthActions   from '../../actions/AuthActions';
 
 import getAsset           from 'app/libs/getAsset';
 import setCookieDomain    from 'app/libs/setCookieDomain';
