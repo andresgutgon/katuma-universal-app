@@ -26,6 +26,9 @@ export default async (req, res, next, params) => {
   const appHost   = `${req.protocol}://${req.headers.host}`;
   const apiHost   = `${req.protocol}://api.${req.headers.host}`;
 
+
+  // If logged In we check this is true
+  // and pupulate store with login
   if (authAgent.isLoggedIn()) {
 
     await apiCall({
@@ -99,7 +102,7 @@ export default async (req, res, next, params) => {
       locals.chunks = serialize(chunks);
       locals.data   = serialize(state);
 
-      const layout = `${process.cwd()}/app/bundles/${bundle}/layouts/Layout.jade`;
+      const layout = `${process.cwd()}/app/bundles/${bundle}/initters/server/Layout.jade`;
       const html   = jade.compileFile(layout, { pretty: false })(locals);
 
       res.send(html);
