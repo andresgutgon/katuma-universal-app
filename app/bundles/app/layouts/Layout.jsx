@@ -1,9 +1,6 @@
 import React                    from 'react';
 import { PropTypes as Type }    from 'react';
 
-import Footer                   from '../components/Footer/Footer';
-
-
 export default class Layout extends React.Component {
 
 
@@ -22,7 +19,6 @@ export default class Layout extends React.Component {
     return (
         <section id="layout">
           {this.props.children}
-          <Footer />
         </section>
     );
 
