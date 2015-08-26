@@ -1,5 +1,5 @@
 import React  from 'react';
-import meta   from '../../layouts/meta';
+import meta   from '../common/meta';
 
 
 export default class Head extends React.Component {

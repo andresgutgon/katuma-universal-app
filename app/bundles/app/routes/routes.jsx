@@ -1,7 +1,7 @@
 import React      from 'react';
 import { Route }  from 'react-router';
 
-import App        from '../layouts/App';
+import App        from '../layouts/Application';
 import Landing      from '../components/Landing/Container';
 import Login      from '../components/Login/LoginContainer';
 import Logout     from '../components/Logout/Logout';
