@@ -29,7 +29,12 @@ export default (initter, config) => {
   app.use(cookies());
 
   app.use(express.static(path.join(__dirname, 'public')));
-
+  app.all('/api/*', function(req, res, next) {
+    // Verify authentication / cookies
+    // Call Rails
+    // Respond with Rails response
+    res.send('Welcome');
+  });
   app.use('/', noCache, initter);
 
   app.set('view engine', 'jade');
@@ -37,7 +42,6 @@ export default (initter, config) => {
   app.use(errors);
 
   app.set('port', config.appPort);
-
   app.listen(app.get('port'), function() {
     console.log(`=> 🚀  Express ${config.bundle} ${config.env} server is running on port ${this.address().port}`);  // eslint-disable-line no-console
   });
