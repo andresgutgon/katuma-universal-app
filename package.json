@@ -1,7 +1,7 @@
 {
   "name": "katuma-universal-app",
   "version": "0.0.1",
-  "description": "My awesome app",
+  "description": "Katuma interface",
   "homepage": "",
   "author": {
     "name": "",
@@ -35,9 +35,9 @@
     "path": "^0.11.14",
     "react": "^0.13.3",
     "react-redux": "^0.9.0",
-    "react-router": "^1.0.0-beta3",
-    "redux": "^1.0.1",
-    "redux-thunk": "^0.1.0",
+    "react-router": "1.0.0-beta3",
+    "redux": "1.0.1",
+    "redux-thunk": "0.1.0",
     "request": "^2.61.0",
     "serialize-javascript": "^1.0.0"
   },

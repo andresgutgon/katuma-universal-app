@@ -22,7 +22,7 @@ export function signup({ data, authAgent, router }) {
 
     return apiCall({
       method: 'POST',
-      path  : '/signup',
+      path  : '/signups',
       data  : data
     })
       .then(res => {
