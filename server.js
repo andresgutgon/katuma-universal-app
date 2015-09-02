@@ -7,7 +7,7 @@ import path         from 'path';
 import noCache      from './server/noCache';
 import errors       from './server/errors';
 import logger       from './server/log';
-
+import request      from 'request';
 
 export default (initter, config) => {
 
