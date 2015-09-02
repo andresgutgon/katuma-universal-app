@@ -35,9 +35,16 @@ export default (initter, config) => {
   app.use(express.static(path.join(__dirname, 'public')));
 
   app.post('/login', function (req, res) {
-    request.post(`http://${rails_url}/api/v1/login`, function (err, response, body) {
-      if (err) {
-        return res.sendStatus(403);
+    var options = {
+      url: `http://${rails_url}/api/v1/login`,
+      body: req.body,
+      json: true
+    };
+
+    request.post(options, function (err, response, body) {
+      console.log(response.statusCode);
+      if (err || response.statusCode != 200) {
+        return res.sendStatus(response.statusCode);
       }
 
       req.session.user_id = body;
@@ -48,14 +55,14 @@ export default (initter, config) => {
 
   app.post('/api/v1/signups', function(req, res) {
     var options = {
-      url: `http://${rails_url}/api/v1/signups`,
+      url: `http://${rails_url}${req.path}`,
       body: req.body,
       json: true
     };
 
     request.post(options, function (err, response, body) {
-      if (err) {
-        return res.sendStatus(403);
+      if (err || response.statusCode != 200) {
+        return res.send(response.statusCode, body);
       }
 
       res.sendStatus(200);
@@ -80,12 +87,12 @@ export default (initter, config) => {
     };
 
     request(options, function (err, response, body) {
-      if (err) {
-        return res.sendStatus(400);
+      if (err || response.statusCode != 200) {
+        return res.send(response.statusCode, body);
       }
 
       // Respond with Rails response
-      res.send(response.status, response.body);
+      res.send(response.statusCode, response.body);
     });
   });
 
