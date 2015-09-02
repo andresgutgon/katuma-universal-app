@@ -165,9 +165,7 @@ export default class Login extends React.Component {
     const { router } = this.context;
 
     const data = {
-      'api_user': {
-        'email'   : login,
-      }
+      'email' : login
     };
 
     authActions.signup({ data, authAgent, router });

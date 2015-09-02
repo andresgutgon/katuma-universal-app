@@ -32,19 +32,23 @@ export default (initter, config) => {
     name: 'session',
     keys: ['hola', 'HOLA']
   }));
+
   app.use(express.static(path.join(__dirname, 'public')));
 
-  app.post('/login', function (req, res) {
+  app.post('api/v1/login', function (req, res) {
+
+
     var options = {
       url: `http://${rails_url}/api/v1/login`,
       body: req.body,
       json: true
     };
 
+
     request.post(options, function (err, response, body) {
       console.log(response.statusCode);
       if (err || response.statusCode != 200) {
-        return res.sendStatus(response.statusCode);
+        return res.status(response.statusCode).send(body);
       }
 
       req.session.user_id = body;
@@ -62,7 +66,7 @@ export default (initter, config) => {
 
     request.post(options, function (err, response, body) {
       if (err || response.statusCode != 200) {
-        return res.send(response.statusCode, body);
+        return res.status(response.statusCode).send(body);
       }
 
       res.sendStatus(200);
@@ -88,11 +92,11 @@ export default (initter, config) => {
 
     request(options, function (err, response, body) {
       if (err || response.statusCode != 200) {
-        return res.send(response.statusCode, body);
+        return res.status(response.statusCode).send(body);
       }
 
       // Respond with Rails response
-      res.send(response.statusCode, response.body);
+      res.status(response.statusCode).send(body);
     });
   });
 

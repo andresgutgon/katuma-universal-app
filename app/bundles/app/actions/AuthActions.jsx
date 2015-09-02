@@ -26,22 +26,7 @@ export function signup({ data, authAgent, router }) {
       data  : data
     })
       .then(res => {
-
-        const { 'email': user, 'authentication_token': token } = res.data.user;
-
-        authAgent.login(user, token, {
-          sessionOnly: false,
-          cb: () => {
-
-            dispatch({
-              type: actionTypes.AUTH_SIGNUP_SUCCEED,
-              user: user
-            });
-            if (!router.goBack()) router.transitionTo('/');
-
-          }
-        });
-
+        router.transitionTo('/');
       })
       .catch(res => {
         dispatch({
@@ -75,13 +60,15 @@ export function login({ data, authAgent, router }) {
 
         authAgent.login(user, token, {
           sessionOnly: false,
-          cb         : () => {
-
+          cb: () => {
             dispatch({
               type: actionTypes.AUTH_LOGIN_SUCCEED,
               user: user
             });
-            if (!router.goBack()) router.transitionTo('/');
+
+            if (!router.goBack()) {
+              router.transitionTo('/groups');
+            }
 
           }
         });
