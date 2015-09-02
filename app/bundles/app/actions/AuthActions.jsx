@@ -12,6 +12,49 @@ export function setLoggedInState(user) {
 
 }
 
+export function signup({ data, authAgent, router }) {
+
+  return dispatch => {
+
+    dispatch({
+      type: actionTypes.AUTH_SIGNUP_REQUESTED
+    });
+
+    return apiCall({
+      method: 'POST',
+      path  : '/signup',
+      data  : data
+    })
+      .then(res => {
+
+        const { 'email': user, 'authentication_token': token } = res.data.user;
+
+        authAgent.login(user, token, {
+          sessionOnly: false,
+          cb: () => {
+
+            dispatch({
+              type: actionTypes.AUTH_SIGNUP_SUCCEED,
+              user: user
+            });
+            if (!router.goBack()) router.transitionTo('/');
+
+          }
+        });
+
+      })
+      .catch(res => {
+        dispatch({
+          type  : actionTypes.AUTH_SIGNUP_FAILED,
+          errors: {
+            code: res.status,
+            data: res.data
+          }
+        });
+      });
+  };
+}
+
 
 export function login({ data, authAgent, router }) {
 

@@ -8,9 +8,9 @@ import * as AuthActions from '../../actions/AuthActions';
 import * as DummyActions from '../../actions/LandingActions';
 
 
-@fetchData(({ apiHost, auth, dispatch }) => {
-  return dispatch(DummyActions.loadDummy({ apiHost, auth }));
-})
+// @fetchData(({ apiHost, auth, dispatch }) => {
+//   return dispatch(DummyActions.loadDummy({ apiHost, auth }));
+// })
 
 @connect(state => ({
   auth : state.auth,

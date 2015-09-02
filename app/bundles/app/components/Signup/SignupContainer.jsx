@@ -3,7 +3,7 @@ import { PropTypes as Type }    from 'react';
 import { bindActionCreators }   from 'redux';
 import { connect }              from 'react-redux';
 
-import Login                    from './Login';
+import Signup                   from './Signup';
 
 import * as AuthActions         from '../../actions/AuthActions';
 
@@ -38,7 +38,7 @@ export default class LoginContainer extends React.Component {
     const { auth, dispatch } = this.props;
 
     return (
-      <Login
+      <Signup
           auth={auth}
           authActions={bindActionCreators(AuthActions, dispatch)}
           {...this.props}

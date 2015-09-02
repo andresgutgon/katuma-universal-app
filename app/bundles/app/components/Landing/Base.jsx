@@ -88,8 +88,11 @@ export default class Dummy extends React.Component {
         <div id="dummy__content__auth">
           {isLoggedIn ? (
             <span onClick={::this._handleLogout} className="dummy__content__auth__link">logout</span>
-          ) : (
-            <Link to="/login" className="dummy__content__auth__link">login</Link>
+          ) : (<div>
+              <Link to="/login" className="dummy__content__auth__link">login</Link>
+               |
+              <Link to="/signup" className="dummy__content__auth__link">Signup</Link>
+            </div>
           )}
         </div>
       </div>
