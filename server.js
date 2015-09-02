@@ -2,6 +2,7 @@ import express      from 'express';
 import compressor   from 'compression';
 import parser       from 'body-parser';
 import cookies      from 'cookie-parser';
+import cookie_session from 'cookie-session';
 import path         from 'path';
 
 import noCache      from './server/noCache';
@@ -27,11 +28,14 @@ export default (initter, config) => {
   app.use(parser.json());
   app.use(parser.urlencoded({ extended: true }));
   app.use(cookies());
+  app.use(cookie_session({
+    name: 'session',
+    keys: ['hola', 'HOLA']
+  }));
   app.use(express.static(path.join(__dirname, 'public')));
 
   app.post('/login', function (req, res) {
-    // Call Rails
-    request.post(`http://${rails_url}/login`, function (err, response, body) {
+    request.post(`http://${rails_url}/api/v1/login`, function (err, response, body) {
       if (err) {
         return res.sendStatus(403);
       }
@@ -40,10 +44,26 @@ export default (initter, config) => {
 
       res.sendStatus(200);
     });
-  })
+  });
 
-  app.get('/api/*', function(req, res) {
-    // Verify authentication / cookies
+  app.post('/api/v1/signups', function(req, res) {
+    var options = {
+      url: `http://${rails_url}/api/v1/signups`,
+      body: req.body,
+      json: true
+    };
+
+    request.post(options, function (err, response, body) {
+      if (err) {
+        return res.sendStatus(403);
+      }
+
+      res.sendStatus(200);
+    });
+  });
+
+  app.get('/api/v1/*', function(req, res) {
+    // Check session
     if (!req.session.user_id) {
       return res.sendStatus(403);
     }
@@ -52,9 +72,11 @@ export default (initter, config) => {
     var options = {
       method: req.method,
       url: `http://${rails_url}${req.path}`,
+      body: req.body,
       headers: {
         'X-katuma-user-id': req.session.user_id
-      }
+      },
+      json: true
     };
 
     request(options, function (err, response, body) {
